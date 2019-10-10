@@ -15,9 +15,11 @@
                     {% else %}
                         -- You lost
                     {% endif %}
-                {% endif %}
+                {% else %}
                 <span class="badge">{{ game.move_set.count }}</span>
-                <span class="badge">{% if game.second_player == user and game.status == "S" or game.first_player == user and game.status == "F"  %} Your Turn {% endif %}</span>
+                <span class="badge">{% if game.second_player == user and game.status == "S" or game.first_player == user and game.status == "F"  %} Your Turn {% else %} Other Player's Turn {% endif %}</span>
+                {% endif %}
+
             </a>
         {% endfor %}
     </div>
