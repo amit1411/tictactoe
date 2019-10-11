@@ -3,9 +3,11 @@
     <div class="list-group bg-info" >
         {% for game in games_list %}
             <a class="list-group-item list-group-item-info"
-               href="{{ game.get_absolute_url }}">
+               href="{{ game.get_absolute_url }}"  >
                 {{ game }}
+
                 {% if game.status not in 'FS' %}
+
                     {% if game.status == "D" %}
                         -- Draw
                     {% elif game.status == "W" and user == game.first_player %}
@@ -15,6 +17,8 @@
                     {% else %}
                         -- You lost
                     {% endif %}
+                <a class="btn btn-primary"
+                   href="{% url 'gameplay_delete_game' game.id %}">Delete Game</a>
                 {% else %}
                 <span class="badge">{{ game.move_set.count }}</span>
                 <span class="badge">{% if game.second_player == user and game.status == "S" or game.first_player == user and game.status == "F"  %} Your Turn {% else %} Other Player's Turn {% endif %}</span>

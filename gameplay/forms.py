@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.core.exceptions import ValidationError
 
-from .models import Move
+from .models import Move, Game
 
 
 class MoveForm(ModelForm):
@@ -19,3 +19,13 @@ class MoveForm(ModelForm):
         except IndexError:
             raise ValidationError("Invalid coordinates")
         return self.cleaned_data
+
+
+class DeleteGameForm(ModelForm):
+    class Meta:
+        model = Game
+        fields = []
+
+
+
+

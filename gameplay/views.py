@@ -4,7 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.views.generic import ListView
 
 from .models import Game
-from .forms import MoveForm
+from .forms import MoveForm, DeleteGameForm
 
 
 @login_required()
@@ -32,6 +32,22 @@ def make_move(request, id):
     else:
         return render(request,
                       "gameplay/game_detail.html",
+                      {'game': game, 'form': form}
+                      )
+
+
+@login_required()
+def delete_game(request, id):
+    game = get_object_or_404(Game, pk=id)
+    if request.method == 'POST':
+        form = DeleteGameForm(instance=game, data=request.POST)
+        if form.is_valid():
+            game.delete()
+            return redirect("player_home")
+    else:
+        form = DeleteGameForm(instance=game)
+        return render(request,
+                      "gameplay/game_delete_game.html",
                       {'game': game, 'form': form}
                       )
 
